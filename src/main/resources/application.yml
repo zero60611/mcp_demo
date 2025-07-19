@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# 建立一個API keys https://platform.openai.com/api-keys 找一個你有用的AI取得API key
+  ai:
+    openai:
+      api-key: "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # 替換成你的API key
+      chat:
+        options:
+          model: gpt-4o
+          temperature: 0.7
+          top_p: 1
+          max_tokens: 512
+          frequency_penalty: 0
+          presence_penalty: 0
+    mcp:
+      server:
+        # MCP Server 開啟
+        enabled: true
+        # MCP Server 配置
+        name: users-management-server
+        version: 1.0.0
+        type: sync
+        sse-message-endpoint: /mcp/message
