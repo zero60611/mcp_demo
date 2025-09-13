@@ -2,9 +2,12 @@ package com.wh.mcp_demo.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 public class ProxyConfig {
+    private static final Logger log = LoggerFactory.getLogger(ProxyConfig.class);
     private static final String PROXY_HOST = "127.0.0.1";
     private static final int PROXY_PORT = 10080;
 
@@ -16,7 +19,7 @@ public class ProxyConfig {
 //        System.setProperty("https.proxyHost", PROXY_HOST);
 //        System.setProperty("https.proxyPort", String.valueOf(PROXY_PORT));
 
-        System.out.println("System proxy configured: http://" + PROXY_HOST + ":" + PROXY_PORT);
+        log.info("System proxy configured: http://{}:{}", PROXY_HOST, PROXY_PORT);
 
 
     }

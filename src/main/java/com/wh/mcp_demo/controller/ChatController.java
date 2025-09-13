@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     private final ChatClient chatClient;
+    private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
     /**
      * 處理聊天，使用AI和MCP工具進行響應
@@ -30,13 +33,13 @@ public class ChatController {
                     .call()
                     .content();
 
-            System.out.println("查看回復content:" + content);
+            log.info("查看回復content:{}", content);
 
             ChatResponse build = ChatResponse.builder().content(content).build();
-            System.out.println(build);
+            log.info("{}", build);
             return ResponseEntity.ok(build);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("處理請求出錯", e);
             ChatResponse build = ChatResponse.builder().content("處理請求出錯" + e.getMessage()).build();
             return ResponseEntity.ok(build);
         }
