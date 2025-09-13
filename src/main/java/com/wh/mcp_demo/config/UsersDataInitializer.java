@@ -5,6 +5,8 @@ import com.wh.mcp_demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersDataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
+    private static final Logger log = LoggerFactory.getLogger(UsersDataInitializer.class);
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,8 +50,8 @@ public class UsersDataInitializer implements CommandLineRunner {
 
         userRepository.saveAll(List.of(u1, u2, u3, u4, u5, u6));
 
-        System.out.println("初始化數據完成");
+        log.info("初始化數據完成");
         List<User> all = userRepository.findAll();
-        all.forEach(System.out::println);
+        all.forEach(user -> log.info("{}", user));
     }
 }
